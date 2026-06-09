@@ -8,10 +8,14 @@ source venv/bin/activate
 
 ## Run
 ```bash
-# Audio (MP3, default)
+# Web UI (recommended)
+python3 app.py
+# then open http://127.0.0.1:5000
+
+# CLI — Audio (MP3, default)
 python3 download.py <youtube-url>
 
-# Video (MP4) at specific quality
+# CLI — Video (MP4) at specific quality
 python3 download.py <youtube-url> --mode video --quality 720
 ```
 
