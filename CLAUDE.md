@@ -8,7 +8,11 @@ source venv/bin/activate
 
 ## Run
 ```bash
+# Audio (MP3, default)
 python3 download.py <youtube-url>
+
+# Video (MP4) at specific quality
+python3 download.py <youtube-url> --mode video --quality 720
 ```
 
 ## Stack

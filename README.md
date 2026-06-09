@@ -24,14 +24,26 @@ its cookies to get past YouTube's "confirm you're not a bot" check.
 ### Usage
 
 ```bash
+# Download audio (MP3) — default
 python3 download.py <youtube-url>
+
+# Download video (MP4) at a specific quality
+python3 download.py <youtube-url> --mode video --quality 720
+
+# Available modes: audio, video
+# Available qualities: best, 1080, 720, 480, 360
 ```
 
-The MP3 will be saved to `downloads/<video title>.mp3`.
+Output is saved to `downloads/<video title>.(mp3|mp4)`.
+
+## v0.2 — Audio + video with quality selection ✓
+
+Added `--mode` (audio/video) and `--quality` (best/1080/720/480/360) flags.
 
 ## Roadmap
 
-- v0.2 — Video downloads + format selection
+- v0.3 — Web UI (Flask)
+- v0.4 — Download history
 - v0.3 — Web UI (Flask)
 - v0.4 — Download history
 - v0.5+ — Playlists, progress bars, tests, CI
