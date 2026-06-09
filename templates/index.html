@@ -65,6 +65,16 @@
     .flash.success { background: #1a3a1a; border: 1px solid #2e6b2e; color: #6fcf6f; }
     .flash.error   { background: #3a1a1a; border: 1px solid #6b2e2e; color: #cf6f6f; }
     #status { margin-top: 1rem; font-size: 0.85rem; color: #888; min-height: 1.2rem; }
+    .history { margin-top: 2.5rem; }
+    .history h2 { font-size: 1rem; color: #aaa; margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; color: #666; font-weight: 500; padding: 0.4rem 0.6rem; border-bottom: 1px solid #2e2e2e; }
+    td { padding: 0.5rem 0.6rem; border-bottom: 1px solid #1e1e1e; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+    tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+    .badge-audio { background: #1a2a3a; color: #6ab0cf; }
+    .badge-video { background: #2a1a3a; color: #b06acf; }
+    .empty { color: #555; font-size: 0.85rem; text-align: center; padding: 1.5rem 0; }
   </style>
 </head>
 <body>
@@ -106,6 +116,34 @@
     </form>
 
     <div id="status"></div>
+
+    <div class="history">
+      <h2>Download History</h2>
+      {% if history %}
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Mode</th>
+              <th>Quality</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in history %}
+            <tr>
+              <td title="{{ item.title }}">{{ item.title }}</td>
+              <td><span class="badge badge-{{ item.mode }}">{{ item.mode }}</span></td>
+              <td>{{ item.quality }}</td>
+              <td>{{ item.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="empty">No downloads yet.</p>
+      {% endif %}
+    </div>
   </div>
 
   <script>

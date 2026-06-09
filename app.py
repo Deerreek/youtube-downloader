@@ -1,7 +1,7 @@
 """Flask web UI for the YouTube downloader."""
 from flask import Flask, flash, redirect, render_template, request, url_for
 
-from downloader import run_download
+from downloader import load_history, run_download
 
 app = Flask(__name__)
 app.secret_key = "yt-downloader-dev"
@@ -9,7 +9,7 @@ app.secret_key = "yt-downloader-dev"
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", history=load_history())
 
 
 @app.route("/download", methods=["POST"])
