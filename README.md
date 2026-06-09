@@ -36,13 +36,22 @@ python3 download.py <youtube-url> --mode video --quality 720
 
 Output is saved to `downloads/<video title>.(mp3|mp4)`.
 
+## v0.3 — Web UI ✓
+
+A local Flask web app. Paste a URL, pick mode and quality, hit Download.
+
+```bash
+source venv/bin/activate
+python3 app.py
+# then open http://127.0.0.1:5000 in your browser
+```
+
 ## v0.2 — Audio + video with quality selection ✓
 
 Added `--mode` (audio/video) and `--quality` (best/1080/720/480/360) flags.
 
 ## Roadmap
 
-- v0.3 — Web UI (Flask)
 - v0.4 — Download history
 - v0.3 — Web UI (Flask)
 - v0.4 — Download history

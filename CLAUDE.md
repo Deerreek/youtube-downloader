@@ -34,9 +34,19 @@ brew install ffmpeg deno
 - Chrome cookies are borrowed at runtime via `cookiesfrombrowser: ("chrome",)` to bypass YouTube's bot-check — user must be logged into YouTube in Chrome
 - `remote_components: ["ejs:github"]` lets yt-dlp fetch YouTube's JS challenge solver — required for format URLs to be accessible
 
+## Web UI
+```bash
+python3 app.py
+# open http://127.0.0.1:5000
+```
+
 ## Project structure
 ```
-download.py       # v0.1: CLI audio downloader
+app.py            # Flask web UI
+downloader.py     # shared download logic (used by CLI and web UI)
+download.py       # CLI entry point
+templates/
+  index.html      # web form
 downloads/        # output folder — gitignored, created at runtime
 venv/             # Python virtual environment — gitignored
 ```
