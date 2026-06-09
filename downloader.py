@@ -45,13 +45,16 @@ def load_history() -> list:
         return json.load(f)
 
 
-def run_download(url: str, mode: str = "audio", quality: str = "best") -> None:
+def run_download(url: str, mode: str = "audio", quality: str = "best", progress_hook=None) -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    hooks = [progress_hook] if progress_hook else []
 
     if mode == "audio":
         options = {
             **SHARED_OPTIONS,
             "format": "bestaudio/best",
+            "progress_hooks": hooks,
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
@@ -65,10 +68,11 @@ def run_download(url: str, mode: str = "audio", quality: str = "best") -> None:
             **SHARED_OPTIONS,
             "format": QUALITY_TO_FORMAT.get(quality, QUALITY_TO_FORMAT["best"]),
             "merge_output_format": "mp4",
+            "progress_hooks": hooks,
         }
 
     info = {}
-    with YoutubeDL({**options, "quiet": False}) as ydl:
+    with YoutubeDL(options) as ydl:
         info_dict = ydl.extract_info(url, download=True)
         info = {
             "title": info_dict.get("title", url),
