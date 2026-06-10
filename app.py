@@ -9,7 +9,6 @@ from flask import Flask, Response, render_template, request
 from downloader import load_history, run_download
 
 app = Flask(__name__)
-app.secret_key = "yt-downloader-dev"
 
 # In-memory store: job_id -> {status, percent, message}
 _jobs: dict = {}
