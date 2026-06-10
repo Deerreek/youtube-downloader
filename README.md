@@ -1,5 +1,7 @@
 # YouTube Downloader
 
+![Tests](https://github.com/Deerreek/youtube-downloader/actions/workflows/test.yml/badge.svg)
+
 A small project for downloading audio/video from YouTube — built incrementally as a way to learn `yt-dlp`, Flask, and git/GitHub along the way.
 
 ## Setup
@@ -7,7 +9,7 @@ A small project for downloading audio/video from YouTube — built incrementally
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install yt-dlp flask certifi
+pip install -r requirements.txt
 ```
 
 Also requires on the system (not in the venv):
@@ -41,10 +43,20 @@ python3 download.py <youtube-url> --mode video --quality 720
 
 Output is saved to `downloads/<video title>.(mp3|mp4)`.
 
+## Testing
+
+```bash
+pytest
+```
+
+Tests cover the history log and the Flask routes — they don't hit YouTube, so they run fast and offline. They run automatically on every push via GitHub Actions (see badge above).
+
 ## Version history
 
 | Version | Feature |
 |---------|---------|
+| v0.6 | Tests + GitHub Actions CI |
+| v0.5 | Real-time download progress bar |
 | v0.4 | Download history — JSON log shown in the web UI |
 | v0.3 | Flask web UI |
 | v0.2 | Video download + quality selection |
@@ -52,4 +64,4 @@ Output is saved to `downloads/<video title>.(mp3|mp4)`.
 
 ## Roadmap
 
-- v0.5+ — Playlists, progress bars, tests, GitHub Actions CI
+- v0.7 — Make repo public
