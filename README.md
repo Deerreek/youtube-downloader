@@ -1,8 +1,17 @@
 # YouTube Downloader
 
 ![Tests](https://github.com/Deerreek/youtube-downloader/actions/workflows/test.yml/badge.svg)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
-A small project for downloading audio/video from YouTube — built incrementally as a way to learn `yt-dlp`, Flask, and git/GitHub along the way.
+A small local tool for downloading audio/video from YouTube — paste a URL, pick audio (MP3) or video (MP4), and watch it download with a live progress bar. Built incrementally as a personal project to learn `yt-dlp`, Flask, and git/GitHub.
+
+> **For personal use only.** Only download videos you have the right to download (e.g. your own content, Creative Commons, or for personal offline viewing per YouTube's terms). Respect copyright.
+
+## Requirements
+
+- **macOS** (the setup commands below use Homebrew; other platforms may need different steps for ffmpeg/deno)
+- Python 3.10+
+- Google Chrome, logged into YouTube (the app borrows its cookies to get past YouTube's bot-check)
 
 ## Setup
 
@@ -10,13 +19,11 @@ A small project for downloading audio/video from YouTube — built incrementally
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+brew install ffmpeg deno
 ```
 
-Also requires on the system (not in the venv):
-- **ffmpeg** — for MP3 conversion (`brew install ffmpeg`)
-- **deno** — JS runtime yt-dlp uses to solve YouTube's signature challenges (`brew install deno`)
-
-You'll also need to be logged into YouTube in **Chrome**, since the script borrows its cookies to get past YouTube's "confirm you're not a bot" check.
+- **ffmpeg** — converts/merges audio and video
+- **deno** — JS runtime yt-dlp uses to solve YouTube's signature challenges
 
 ## Usage
 
@@ -43,6 +50,12 @@ python3 download.py <youtube-url> --mode video --quality 720
 
 Output is saved to `downloads/<video title>.(mp3|mp4)`.
 
+## Troubleshooting
+
+- **SSL: CERTIFICATE_VERIFY_FAILED** — make sure `certifi` installed correctly (`pip install -r requirements.txt`); the app sets `SSL_CERT_FILE` automatically.
+- **"Sign in to confirm you're not a bot"** — make sure you're logged into YouTube in Chrome. The app reuses that session.
+- **"Requested format is not available"** — make sure `deno` is installed (`brew install deno`) and on your `PATH`.
+
 ## Testing
 
 ```bash
@@ -55,6 +68,7 @@ Tests cover the history log and the Flask routes — they don't hit YouTube, so 
 
 | Version | Feature |
 |---------|---------|
+| v0.7 | Public release prep — LICENSE, troubleshooting docs |
 | v0.6 | Tests + GitHub Actions CI |
 | v0.5 | Real-time download progress bar |
 | v0.4 | Download history — JSON log shown in the web UI |
@@ -62,6 +76,6 @@ Tests cover the history log and the Flask routes — they don't hit YouTube, so 
 | v0.2 | Video download + quality selection |
 | v0.1 | Audio downloader (CLI) |
 
-## Roadmap
+## License
 
-- v0.7 — Make repo public
+[MIT](LICENSE)
