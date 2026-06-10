@@ -34,26 +34,29 @@ brew install ffmpeg deno
 ```
 
 ## Key quirks
-- `SSL_CERT_FILE` is set inside `download.py` via certifi — do not remove this, macOS Python won't verify HTTPS otherwise
+- `SSL_CERT_FILE` is set inside `downloader.py` via certifi — do not remove this, macOS Python won't verify HTTPS otherwise
 - Chrome cookies are borrowed at runtime via `cookiesfrombrowser: ("chrome",)` to bypass YouTube's bot-check — user must be logged into YouTube in Chrome
 - `remote_components: ["ejs:github"]` lets yt-dlp fetch YouTube's JS challenge solver — required for format URLs to be accessible
 
-## Web UI
+## Testing
 ```bash
-python3 app.py
-# open http://127.0.0.1:5000
+pytest
 ```
+Tests are offline (no real YouTube calls) and run automatically on every push via GitHub Actions (`.github/workflows/test.yml`).
 
 ## Project structure
 ```
-app.py            # Flask web UI
-downloader.py     # shared download logic (used by CLI and web UI)
-download.py       # CLI entry point
+app.py                    # Flask web UI + SSE progress endpoint
+downloader.py             # shared download + history logic (used by CLI and web UI)
+download.py               # CLI entry point
 templates/
-  index.html      # web form
-downloads/        # output folder — gitignored, created at runtime
-venv/             # Python virtual environment — gitignored
+  index.html              # web form + history table
+tests/                    # pytest test suite
+.github/workflows/test.yml # CI: runs pytest on every push
+downloads/                # output folder — gitignored, created at runtime
+history.json              # download history log — gitignored, created at runtime
+venv/                     # Python virtual environment — gitignored
 ```
 
 ## Versioning convention
-Each version bump (v0.2, v0.3, ...) is developed on its own feature branch and merged into main via a pull request. See CHANGELOG.md for release notes.
+Each version bump (v0.2, v0.3, ...) is developed on its own feature branch and merged into main via a pull request. Notable versions are tagged and released via `gh release create`. See README.md's version history table for release notes.
